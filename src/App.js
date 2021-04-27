@@ -1,23 +1,29 @@
 import logo from './logo.svg';
+import Card from './Card.jsx'
+import Item from './Item.jsx'
+import Banner from './Banner.jsx'
+
 import './App.css';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Banner/>
+
+      <div class="grid">
+        <div class="row">
+          <Card label="Tomato" price="£3.00"/>
+          <Card label="Cucumber" price="£6.50"/>
+          <Card label="Bell Peppers" price="£7.00"/>
+        </div>
+
+        <div class="row">
+          <Card label="Mushrooms" price="£8.00"/>
+          <Card label="Broccoli" price="£9.10"/>
+          <Card label="Carrots" price="£12.40"/>
+        </div>
+        
+      </div>
     </div>
   );
 }

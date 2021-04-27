@@ -1,0 +1,39 @@
+img {
+    overflow: hidden;
+    height: 50px;
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height : 35;
+    width : 40;
+    flex: 0.75;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    height: 55px;
+}
+
+.category {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    cursor: pointer;
+    font-family: "Roboto";
+}
+
+.sections {
+    display: flex;
+    font: 10;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex: 3;
+}

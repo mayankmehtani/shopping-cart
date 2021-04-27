@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Item(models.Model):
+    def __str__(self):
+        return self.name
+
     name = models.TextField()
     price = models.DecimalField(
         max_digits=7,
