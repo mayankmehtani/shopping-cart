@@ -12,7 +12,7 @@ function App() {
 
       <div class="grid">
         <div class="row">
-          <Card label="Tomato" price="£3.00"/>
+          <Card label="Tomato" price="£3.00" img="assets/tomato.jpg"/>
           <Card label="Cucumber" price="£6.50"/>
           <Card label="Bell Peppers" price="£7.00"/>
         </div>
