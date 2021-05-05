@@ -9,6 +9,12 @@ class Item(models.Model):
         return self.name
 
     name = models.TextField()
+    color = models.TextField(null=True)
+    weight = models.DecimalField(
+        max_digits=10,
+        decimal_places=3,
+        null=True
+    )
     price = models.DecimalField(
         max_digits=7,
         decimal_places=2
