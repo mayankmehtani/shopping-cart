@@ -12,9 +12,3 @@ class ItemViewSet(viewsets.ModelViewSet):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer
     permission_classes = [permissions.IsAuthenticated]
-
-    def retrieve(self, request, pk=None):
-        queryset = Item.objects.all()
-        item = get_object_or_404(queryset, pk=pk)
-        serializer = ItemSerializer(item)
-        return Response(serializer.data)

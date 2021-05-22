@@ -1,12 +1,14 @@
 import React, {Component} from 'react'
-import tomato from './assets/tomato.jpg'
+import './Card.css'
 import plus from './assets/plus.svg'
 import minus from './assets/minus.svg'
 
 class Card extends Component {
     constructor(props) {
         super(props);
-        this.state = {quantity: 0};
+        this.state = {
+            quantity: 0
+        };
     }
 
     increment() {
@@ -22,14 +24,12 @@ class Card extends Component {
         } else {
             this.setState({quantity: currentQuantity - 1})
         }
-
     }
+
     render () { 
         return (
             <div>
                 <div class="details">
-                    <img src={tomato}/>
-
                     <div>
                         {this.props.label}
                     </div>
