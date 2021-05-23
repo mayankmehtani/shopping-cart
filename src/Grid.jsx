@@ -8,19 +8,33 @@ class Grid extends Component {
         super();
 
         this.state = {
-            rows: []
+            cards: [],
         }
     }
     async getItems() {
         return await fetch('/api/item/')
             .then(response => {
-                if(!response.ok) {
+                if (!response.ok) {
                     throw ("API call failed");
                 } else {
                     return response.json();
                 }
             })
             .catch(error => console.log(error));
+    }
+    setRows() {
+        let rows = [];
+        for (let i=0; i < this.state.cards.length; i+=3) {
+            rows.push(
+                <div class="row">
+                    {this.state.cards[i]}
+                    {this.state.cards[i+1]}
+                    {this.state.cards[i+2]}
+                </div>
+            )
+        }
+
+        return rows;
     }
     async componentDidMount() {
         let itemCards = [];
@@ -30,20 +44,12 @@ class Grid extends Component {
              itemCards.push(<Card label={item.name} price={"£"+item.price}></Card>)
         }
 
-        let rows = [];
-        for (let i = 0; i < itemCards.length; i += 3) {
-            rows.push(
-                <div class="row">
-                    {itemCards[i]}{itemCards[i+1]}{itemCards[i+2]}
-                </div>
-            ) 
-        }
-        this.setState({rows: rows});
+        this.setState({cards: itemCards})
     }
     render() {
         return (
             <div id="grid">
-                {this.state.rows}
+                {this.setRows()}
             </div>
         )
     }
