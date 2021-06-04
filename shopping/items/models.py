@@ -29,7 +29,7 @@ class Item(models.Model):
         validators=[MinValueValidator(0)],
         default=0
     )
-    type = models.TextField(
+    primary_type = models.TextField(
         choices = ITEM_CHOICES,
     )
 

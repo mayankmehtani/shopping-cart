@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from items.views import ItemViewSet
+from items.views import ItemViewSet, check_item_stock
 # from item.views import ItemViewSet
 from rest_framework.routers import DefaultRouter
 
 item_router = DefaultRouter()
-item_router.register(r'api/item', ItemViewSet, basename='item')
+item_router.register(r'api/item', ItemViewSet, basename="item")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/item/<str:item>/instock', check_item_stock)
 ] + item_router.urls

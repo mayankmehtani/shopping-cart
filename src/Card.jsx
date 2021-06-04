@@ -7,7 +7,8 @@ class Card extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 0
+            quantity: 0,
+            added: false
         };
     }
 
@@ -25,6 +26,27 @@ class Card extends Component {
             this.setState({quantity: currentQuantity - 1})
         }
     }
+
+    async addToCart() {
+        let item = this.props.label;
+        let stock = await fetch(`/api/item/${item}/instock`)
+            .then(response => {
+                if (!response.ok) {
+                    throw ("API call failed");
+                } else {
+                    return response.json();
+                }
+            })
+            .catch(error => console.log(error));
+
+        if (!stock) {
+            alert("Out of Stock!");
+        } else {
+            alert("In Stock!");
+        }
+        
+    }
+
 
     render () { 
         return (
@@ -49,6 +71,10 @@ class Card extends Component {
                     <div onClick={this.increment.bind(this)}>
                         <img src={plus}/>
                     </div>
+                </div>
+
+                <div class="cart" onClick={this.addToCart.bind(this)}>
+                    Add to Cart
                 </div>
             </div>
         )
