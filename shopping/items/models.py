@@ -1,15 +1,22 @@
 # Create your models here.
 from django.core.validators import MinValueValidator
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 from django.urls import reverse
 
 class Item(models.Model):
-    ITEM_CHOICES = (
+    PRIMARY_CHOICES = (
         ("FO", "Food"),
         ("HI", "Household Item"),
         ("OS", "Office Supplies")
+    )
+    SECONDARY_CHOICES = (
+        ("FR", "Fruit"),
+        ("DR", "Drink"),
+        ("VEG", "Vegetables"),
+        ("ME", "Meat")
     )
 
     name = models.TextField()
@@ -30,13 +37,19 @@ class Item(models.Model):
         default=0
     )
     primary_type = models.TextField(
-        choices = ITEM_CHOICES,
+        choices = PRIMARY_CHOICES
+    )
+    secondary_type = models.TextField(
+        choices = SECONDARY_CHOICES,
+        blank=True
     )
 
     def __str__(self):
         return self.name
 
     def save(self, *args, **kwargs):
+        if self.secondary_type and self.primary_type != "FO":
+            raise ValidationError("Secondary types are not allowed for non-food items")
         self.full_clean()
         super().save(*args, **kwargs)
 
