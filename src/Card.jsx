@@ -10,24 +10,40 @@ class Card extends Component {
             quantity: 0,
             added: false
         };
+
+        this.setQuantityFromUser = this.setQuantityFromUser.bind(this);
     }
 
     increment() {
         let currentQuantity = this.state.quantity;
-        this.setState({quantity: currentQuantity+1})
+
+        if (!isNaN(currentQuantity)) {
+            this.setState({quantity: Number(currentQuantity)+1});
+        }
     }
 
     decrement() {
         let currentQuantity = this.state.quantity;
 
-        if (currentQuantity === 0) {
+        if (currentQuantity === 0 || currentQuantity === "") {
             return;
-        } else {
-            this.setState({quantity: currentQuantity - 1})
+        } else if (!isNaN(currentQuantity)) {
+            this.setState({quantity: Number(currentQuantity) - 1})
         }
     }
 
+    setQuantityFromUser({target}) {
+        this.setState({quantity: target.value});
+    }
+
     async addToCart() {
+        if (isNaN(this.state.quantity)) {
+            alert("That's not a number!");
+            return;
+        } else if (this.state.quantity === 0 || this.state.quantity === "") {
+            return;
+        }
+
         let item = this.props.label;
         let stock = await fetch(`/api/item/${item}/instock`)
             .then(response => {
@@ -62,7 +78,7 @@ class Card extends Component {
                 </div>
                 
                 <div class="quantity">
-                    <label>{this.state.quantity}</label>
+                    <input type="text" onChange={this.setQuantityFromUser} value={this.state.quantity}></input>
 
                     <div onClick={this.decrement.bind(this)}>
                         <img src={minus}/>

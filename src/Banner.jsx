@@ -1,37 +1,52 @@
 import React, {Component} from 'react'
+import Grid from './Grid.jsx'
 import './Banner.css'
 import etsyLogo from './assets/etsy.png'
+import {
+    BrowserRouter as Router,
+    Link,
+    Route,
+    Switch
+} from "react-router-dom"
 
 class Banner extends Component {
     render() {
         return (
-            <div className="header">
-                <div className="logo">
-                    <img src={etsyLogo}/>
-                </div>
-
-                <div className="sections">
-                    <div className="category">
-                        Groceries
+            <Router>
+                <div className="header">
+                    <div className="logo">
+                        <img src={etsyLogo}/>
                     </div>
 
-                    <div className="category">
-                        Vegetables
-                    </div>
+                    <div className="sections">
+                        <Link to="/Groceries" exact className="category">
+                            Groceries
+                        </Link>
 
-                    <div className="category">
-                        Drink
-                    </div>
+                        <Link to="/Household" exact className="category">
+                            Household
+                        </Link>
 
-                    <div className="category">
-                        Meat, Fish
-                    </div>
-
-                    <div className="category">
-                        Dairy
+                        <Link to="/Office" className="category">
+                            Office
+                        </Link>
                     </div>
                 </div>
-            </div>
+
+                <Switch>
+                    <Route path="/Groceries">
+                        <Grid item_type="FO"/>
+                    </Route>
+
+                    <Route path="/Household">
+                        <Grid item_type="HI"/>
+                    </Route>
+
+                    <Route path="/Office Supplies">
+                        <Grid item_type="FO"/>
+                    </Route>
+                </Switch>
+            </Router>
         )
     }
 }

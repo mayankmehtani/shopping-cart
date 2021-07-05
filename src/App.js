@@ -1,12 +1,12 @@
+import React from "react";
+
 import Banner from './Banner.jsx'
-import Grid from './Grid.jsx'
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Banner/>
-      <Grid/>
     </div>
   );
 }

@@ -4,15 +4,15 @@ import './Grid.css'
 import _ from 'lodash'
 
 class Grid extends Component {
-    constructor() { 
-        super();
+    constructor(props) { 
+        super(props);
 
         this.state = {
             cards: [],
         }
     }
     async getItems() {
-        return await fetch('/api/item/')
+        return await fetch(`/api/item/${this.props.item_type}/`)
             .then(response => {
                 if (!response.ok) {
                     throw ("API call failed");
@@ -41,7 +41,7 @@ class Grid extends Component {
         let items = await this.getItems();
         items = _.sortBy(items, "name");
         for (let item of items) {
-             itemCards.push(<Card label={item.name} price={"£"+item.price}></Card>)
+            itemCards.push(<Card label={item.name} price={"£"+item.price}></Card>)
         }
 
         this.setState({cards: itemCards})

@@ -5,16 +5,13 @@ from django.views.decorators.http import require_http_methods
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
-from rest_framework import viewsets
-from rest_framework import permissions
-from rest_framework import authentication, permissions
 from rest_framework.response import Response
 
 # Create your views here.
 @api_view()
-def check_item_stock(request, item):
+def check_item_stock(request, item_name):
     try:
-        i = Item.objects.get(name=item)
+        i = Item.objects.get(name=item_name)
     except Item.DoesNotExist as e:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -23,7 +20,11 @@ def check_item_stock(request, item):
 
     return Response(True, status=status.HTTP_200_OK)
 
-class ItemViewSet(viewsets.ModelViewSet):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-    permission_classes = [permissions.IsAuthenticated]
+@api_view()
+def get_item_by_type(request, item_type):
+    items = Item.objects.filter(primary_type=item_type)
+
+    if not items.count():
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    return Response(data=ItemSerializer(items, many=True).data, status=status.HTTP_200_OK)
