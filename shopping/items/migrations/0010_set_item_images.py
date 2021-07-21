@@ -3,6 +3,9 @@
 from django.db import migrations, models
 
 def forwards(apps, schema_editor):
+    """
+    Set the corresponding image paths of each item by using the item's name.
+    """
     if schema_editor.connection.alias != 'default':
         return
 
