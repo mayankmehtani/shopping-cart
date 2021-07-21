@@ -6,6 +6,7 @@ import minus from './assets/minus.svg'
 class Card extends Component {
     constructor(props) {
         super(props);
+
         this.state = {
             quantity: 0,
             added: false
@@ -75,6 +76,9 @@ class Card extends Component {
                     <div>
                         {this.props.price}
                     </div>
+
+                    <img src={`http://localhost:8000${this.props.image_src}`}></img>
+                    
                 </div>
                 
                 <div class="quantity">

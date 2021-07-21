@@ -43,6 +43,7 @@ class Item(models.Model):
         choices = SECONDARY_CHOICES,
         blank=True
     )
+    image = models.ImageField(upload_to="Items")
 
     def __str__(self):
         return self.name

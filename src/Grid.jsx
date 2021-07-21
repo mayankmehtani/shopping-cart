@@ -41,7 +41,7 @@ class Grid extends Component {
         let items = await this.getItems();
         items = _.sortBy(items, "name");
         for (let item of items) {
-            itemCards.push(<Card label={item.name} price={"£"+item.price}></Card>)
+            itemCards.push(<Card label={item.name} price={"£"+item.price} image_src={item.image}></Card>)
         }
 
         this.setState({cards: itemCards})

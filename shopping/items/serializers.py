@@ -11,3 +11,4 @@ class ItemSerializer(serializers.Serializer):
         decimal_places=2
     )
     color = serializers.CharField()
+    image = serializers.ImageField()
