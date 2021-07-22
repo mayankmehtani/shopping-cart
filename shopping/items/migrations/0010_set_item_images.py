@@ -15,6 +15,18 @@ def forwards(apps, schema_editor):
         item.image = f"Items/{item_image_name}.png"
         item.save()
 
+def reverse(apps, schema_editor):
+    """
+    Set the corresponding image paths of each item by using the item's name.
+    """
+    if schema_editor.connection.alias != 'default':
+        return
+
+    Item = apps.get_model("items", "Item")
+    for item in Item.objects.all():
+        item.image = f"Items/apple.png"
+        item.save()
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -22,7 +34,7 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunPython(forwards),
+        migrations.RunPython(code=forwards, reverse_code=reverse),
     ]
 
     
