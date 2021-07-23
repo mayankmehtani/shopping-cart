@@ -17,7 +17,7 @@ def forwards(apps, schema_editor):
 
 def reverse(apps, schema_editor):
     """
-    Set the corresponding image paths of each item by using the item's name.
+    Revert to the default image.
     """
     if schema_editor.connection.alias != 'default':
         return
