@@ -12,7 +12,7 @@ from rest_framework.response import Response
 def check_item_stock(request, item_name):
     try:
         i = Item.objects.get(name=item_name)
-    except Item.DoesNotExist as e:
+    except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if not i.current_stock:
