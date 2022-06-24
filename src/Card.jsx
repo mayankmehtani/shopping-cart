@@ -11,41 +11,57 @@ class Card extends Component {
             quantity: 0,
             added: false
         };
-
-        this.setQuantityFromUser = this.setQuantityFromUser.bind(this);
     }
 
     increment() {
-        let currentQuantity = this.state.quantity;
-
-        if (!isNaN(currentQuantity)) {
-            this.setState({quantity: Number(currentQuantity)+1});
-        }
+        // Increment the quantity by 1. A blank will be interpreted as 0
+        this.setState({quantity: Number(this.state.quantity)+1});
     }
 
     decrement() {
+        // Decrement quantity, if it is a positive number otherwise do nothing
         let currentQuantity = this.state.quantity;
 
-        if (currentQuantity === 0 || currentQuantity === "") {
-            return;
-        } else if (!isNaN(currentQuantity)) {
-            this.setState({quantity: Number(currentQuantity) - 1})
+        if (currentQuantity !== 0 && currentQuantity !== "") {
+            this.setState({quantity: Number(currentQuantity) - 1});
         }
     }
 
+    isValidQuantity(customerInput) {
+        // only allow 0 to 99 and a blank string for possible quantity values
+        const invalidChars = [" ", ".", ",", "-"]
+
+        for (let invalidChar of invalidChars) {
+            if (customerInput.indexOf(invalidChar) !== -1){
+                return false;
+            }
+        }
+
+        if (isNaN(customerInput)){
+            return false;
+        }
+
+        if (typeof(customerInput) === "number" && customerInput > 99){
+            return false;
+        }
+
+        return true;   
+    }
+
     setQuantityFromUser({target}) {
+        if (!this.isValidQuantity(target.value)){
+            return false;
+        }
+
         this.setState({quantity: target.value});
     }
 
     async addToCart() {
-        if (isNaN(this.state.quantity)) {
-            alert("That's not a number!");
-            return;
-        } else if (this.state.quantity === 0 || this.state.quantity === "") {
+        if (!this.state.quantity) {
             return;
         }
 
-        let item = this.props.label;
+        const item = this.props.label;
         let stock = await fetch(`/api/item/${item}/instock`)
             .then(response => {
                 if (!response.ok) {
@@ -56,12 +72,11 @@ class Card extends Component {
             })
             .catch(error => console.log(error));
 
-        if (!stock) {
+        if (stock <= 0) {
             alert("Out of Stock!");
         } else {
             alert("In Stock!");
         }
-        
     }
 
 
@@ -82,7 +97,8 @@ class Card extends Component {
                 </div>
                 
                 <div class="quantity">
-                    <input type="text" onChange={this.setQuantityFromUser} value={this.state.quantity}></input>
+                    <input type="text" onChange={this.setQuantityFromUser.bind(this)} value={this.state.quantity} onPaste={(e) => e.preventDefault()}>
+                    </input>
 
                     <div onClick={this.decrement.bind(this)}>
                         <img src={minus}/>
@@ -98,7 +114,7 @@ class Card extends Component {
                 </div>
             </div>
         )
-    }
+    }   
 }
 
 export default Card;
