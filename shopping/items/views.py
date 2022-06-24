@@ -9,16 +9,13 @@ from rest_framework.response import Response
 
 # Create your views here.
 @api_view()
-def check_item_stock(request, item_name):
+def get_stock_inventory(request, item_name):
     try:
         i = Item.objects.get(name=item_name)
     except Item.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
-    if not i.current_stock:
-        return Response(False, status=status.HTTP_200_OK)
-
-    return Response(True, status=status.HTTP_200_OK)
+    return Response(data={"current_stock": i.current_stock}, status=status.HTTP_200_OK)
 
 @api_view()
 def get_item_by_type(request, item_type):

@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
-from items.views import check_item_stock, get_item_by_type
+from items.views import get_item_by_type, get_stock_inventory
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/item/<str:item_name>/instock', check_item_stock),
+    path('api/item/<str:item_name>/stock', get_stock_inventory),
     path('api/item/<str:item_type>/', get_item_by_type)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

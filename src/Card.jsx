@@ -29,7 +29,7 @@ class Card extends Component {
 
     isValidQuantity(customerInput) {
         // only allow 0 to 99 and a blank string for possible quantity values
-        const invalidChars = [" ", ".", ",", "-"]
+        const invalidChars = [" ", ".", ",", "-"];
 
         for (let invalidChar of invalidChars) {
             if (customerInput.indexOf(invalidChar) !== -1){
@@ -41,7 +41,8 @@ class Card extends Component {
             return false;
         }
 
-        if (typeof(customerInput) === "number" && customerInput > 99){
+
+        if (Number(customerInput) > 99){
             return false;
         }
 
@@ -53,7 +54,12 @@ class Card extends Component {
             return false;
         }
 
-        this.setState({quantity: target.value});
+        if (target.value !== ""){
+            this.setState({quantity: Number(target.value)});
+        } else {
+            this.setState({quantity: target.value});
+        }
+        
     }
 
     async addToCart() {
@@ -62,7 +68,7 @@ class Card extends Component {
         }
 
         const item = this.props.label;
-        let stock = await fetch(`/api/item/${item}/instock`)
+        let response = await fetch(`/api/item/${item}/stock`)
             .then(response => {
                 if (!response.ok) {
                     throw ("API call failed");
@@ -72,8 +78,8 @@ class Card extends Component {
             })
             .catch(error => console.log(error));
 
-        if (stock <= 0) {
-            alert("Out of Stock!");
+        if (response["current_stock"] < this.state.quantity) {
+            alert(`Not enough stock available - only ${response["current_stock"]} left of this item`);
         } else {
             alert("In Stock!");
         }
