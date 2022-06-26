@@ -35,15 +35,15 @@ class Banner extends Component {
 
                 <Switch>
                     <Route path="/Groceries">
-                        <Grid item_category="FO"/>
+                        <Grid itemCategory={"FO"} />
                     </Route>
 
                     <Route path="/Household">
-                        <Grid item_category="HI"/>
+                        <Grid itemCategory={"HI"} />
                     </Route>
 
-                    <Route path="/Office Supplies">
-                        <Grid item_category="FO"/>
+                    <Route path="/Office">
+                        <Grid itemCategory={"OS"} />
                     </Route>
                 </Switch>
             </Router>

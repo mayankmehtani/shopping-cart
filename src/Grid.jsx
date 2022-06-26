@@ -12,10 +12,10 @@ class Grid extends Component {
         }
     }
     async getItems() {
-        return await fetch(`/api/item/${this.props.item_category}/`)
+        return await fetch(`/api/item/${this.props.itemCategory}/`)
             .then(response => {
                 if (!response.ok) {
-                    throw ("API call failed");
+                    throw Error("API call failed");
                 } else {
                     return response.json();
                 }
@@ -36,7 +36,8 @@ class Grid extends Component {
 
         return rows;
     }
-    async componentDidMount() {
+
+    async setCards() {
         let itemCards = [];
         let items = await this.getItems();
         items = _.sortBy(items, "name");
@@ -45,6 +46,20 @@ class Grid extends Component {
         }
 
         this.setState({cards: itemCards})
+    }
+
+    async componentDidMount() {
+        this.setCards();
+    }
+    async componentDidUpdate(prevProps) {
+        console.log("current props - ", this.props);
+
+        console.log("previous props - ", prevProps);
+        if (this.props.itemCategory === prevProps.itemCategory) {
+            return;
+        }
+
+        this.setCards();
     }
     render() {
         return (
