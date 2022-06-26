@@ -18,8 +18,8 @@ def get_stock_inventory(request, item_name):
     return Response(data={"current_stock": i.current_stock}, status=status.HTTP_200_OK)
 
 @api_view()
-def get_item_by_type(request, item_type):
-    items = Item.objects.filter(primary_type=item_type)
+def get_item_by_category(request, item_category):
+    items = Item.objects.filter(primary_category=item_category)
 
     if not items.count():
         return Response(status=status.HTTP_404_NOT_FOUND)
