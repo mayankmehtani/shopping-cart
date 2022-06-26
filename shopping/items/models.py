@@ -36,10 +36,10 @@ class Item(models.Model):
         validators=[MinValueValidator(0)],
         default=0
     )
-    primary_type = models.TextField(
+    primary_category = models.TextField(
         choices = PRIMARY_CHOICES
     )
-    secondary_type = models.TextField(
+    secondary_category = models.TextField(
         choices = SECONDARY_CHOICES,
         blank=True
     )
@@ -50,7 +50,7 @@ class Item(models.Model):
 
     def save(self, *args, **kwargs):
         if self.secondary_type and self.primary_type != "FO":
-            raise ValidationError("Secondary types are not allowed for non-food items")
+            raise ValidationError("Non-food items cannot have a secondary category")
         self.full_clean()
         super().save(*args, **kwargs)
 
