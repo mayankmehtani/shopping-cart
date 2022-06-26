@@ -78,7 +78,9 @@ class Card extends Component {
             })
             .catch(error => console.log(error));
 
-        if (response["current_stock"] < this.state.quantity) {
+        if (response["current_stock"] === 0) {
+            alert("This item is currently out of stock");
+        } else if (response["current_stock"] < this.state.quantity) {
             alert(`Not enough stock available - only ${response["current_stock"]} left of this item`);
         } else {
             alert("In Stock!");
