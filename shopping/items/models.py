@@ -49,9 +49,10 @@ class Item(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        if self.secondary_type and self.primary_type != "FO":
+        if self.secondary_category and self.primary_category != "FO":
             raise ValidationError("Non-food items cannot have a secondary category")
         self.full_clean()
+        self.name = self.name.title()
         super().save(*args, **kwargs)
 
 
