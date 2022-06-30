@@ -38,28 +38,25 @@ class Grid extends Component {
     }
 
     async setCards() {
-        let itemCards = [];
+        let itemCards = new Array();
         let items = await this.getItems();
         items = _.sortBy(items, "name");
         for (let item of items) {
-            itemCards.push(<Card label={item.name} price={"£"+item.price} image_src={item.image}></Card>)
+            let c = <Card label={item.name} price={"$"+item.price} image_src={item.image}/>;
+            itemCards.push(c);
         }
 
-        this.setState({cards: itemCards})
+        this.setState({cards: []});
+        this.setState({cards: itemCards});
     }
 
     async componentDidMount() {
         this.setCards();
     }
-    async componentDidUpdate(prevProps) {
-        console.log("current props - ", this.props);
-
-        console.log("previous props - ", prevProps);
-        if (this.props.itemCategory === prevProps.itemCategory) {
-            return;
+    async componentDidUpdate(prevProps) {        
+        if (this.props.itemCategory !== prevProps.itemCategory) {
+            this.setCards();
         }
-
-        this.setCards();
     }
     render() {
         return (
