@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import Grid from './Grid.jsx'
 import './Banner.css'
 import etsyLogo from './assets/etsy.png'
@@ -30,6 +31,10 @@ class Banner extends Component {
                         <Link to="/Office" className="category">
                             Office
                         </Link>
+
+                        <Link to="/Cart">
+                            Cart: ${this.props.cartTotal}
+                        </Link>
                     </div>
                 </div>
 
@@ -45,10 +50,18 @@ class Banner extends Component {
                     <Route path="/Office">
                         <Grid itemCategory={"OS"} />
                     </Route>
+
+                    <Route path="/Cart">
+                    </Route>
                 </Switch>
             </Router>
         )
     }
 }
 
-export default Banner;
+// maps redux state to this component's props
+const mapStateToProps = (state) => {
+    return {cartTotal: state.cart.total};
+}
+
+export default connect(mapStateToProps)(Banner);
