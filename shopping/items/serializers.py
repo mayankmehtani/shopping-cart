@@ -2,6 +2,7 @@ from rest_framework import serializers
 
 class ItemSerializer(serializers.Serializer):
     name = serializers.CharField()
+    current_stock = serializers.IntegerField()
     weight = serializers.DecimalField(
         max_digits=10,
         decimal_places=3
@@ -12,3 +13,10 @@ class ItemSerializer(serializers.Serializer):
     )
     color = serializers.CharField()
     image = serializers.ImageField()
+
+
+class ItemOrderRequest(serializers.Serializer):
+    item_name = serializers.CharField()
+    quantity_requested = serializers.IntegerField(
+        min_value=1
+    )

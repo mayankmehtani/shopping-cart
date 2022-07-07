@@ -12,7 +12,7 @@ class Grid extends Component {
         }
     }
     async getItems() {
-        return await fetch(`/api/item/${this.props.itemCategory}/`)
+        return await fetch(`/api/item-category/${this.props.itemCategory}/`)
             .then(response => {
                 if (!response.ok) {
                     throw Error("API call failed");
