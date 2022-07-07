@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import {connect} from 'react-redux'
 import './Card.css'
+import {addItemToCart} from './features/cartSlice'
 import plus from './assets/plus.svg'
 import minus from './assets/minus.svg'
 
@@ -83,6 +85,7 @@ class Card extends Component {
         } else if (response["current_stock"] < this.state.quantity) {
             alert(`Not enough stock available - only ${response["current_stock"]} left of this item`);
         } else {
+            this.props.addItemToCart(this.props.price, this.state.quantity);
             alert("In Stock!");
         }
     }
@@ -97,7 +100,7 @@ class Card extends Component {
                     </div>
 
                     <div>
-                        {this.props.price}
+                        ${this.props.price}
                     </div>
 
                     <img src={`http://localhost:8000${this.props.image_src}`}></img>
@@ -125,4 +128,17 @@ class Card extends Component {
     }   
 }
 
-export default Card;
+// maps redux state to this component's props
+const mapStateToProps = (state) => {
+    return {cartTotal: state.cart.total};
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        addItemToCart: (price, quantity) => dispatch(
+            addItemToCart({"price" :price, "quantity": quantity})
+        ),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);
