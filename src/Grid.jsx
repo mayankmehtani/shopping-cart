@@ -53,11 +53,13 @@ class Grid extends Component {
     async componentDidMount() {
         this.setCards();
     }
+
     async componentDidUpdate(prevProps) {        
         if (this.props.itemCategory !== prevProps.itemCategory) {
             this.setCards();
         }
     }
+    
     render() {
         return (
             <div id="grid">

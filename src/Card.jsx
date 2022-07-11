@@ -85,7 +85,7 @@ class Card extends Component {
         } else if (response["current_stock"] < this.state.quantity) {
             alert(`Not enough stock available - only ${response["current_stock"]} left of this item`);
         } else {
-            this.props.addItemToCart(this.props.price, this.state.quantity);
+            this.props.addItemToCart(this.props.price, this.state.quantity, item);
             alert("In Stock!");
         }
     }
@@ -135,8 +135,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addItemToCart: (price, quantity) => dispatch(
-            addItemToCart({"price" :price, "quantity": quantity})
+        addItemToCart: (price, quantity, itemName) => dispatch(
+            addItemToCart({
+                "price": price, 
+                "quantity": quantity,
+                "itemName": itemName,
+            })
         ),
     }
 }

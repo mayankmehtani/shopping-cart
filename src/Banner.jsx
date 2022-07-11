@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import Cart from './Cart.jsx'
 import Grid from './Grid.jsx'
 import './Banner.css'
 import etsyLogo from './assets/etsy.png'
@@ -52,6 +53,7 @@ class Banner extends Component {
                     </Route>
 
                     <Route path="/Cart">
+                        <Cart/>
                     </Route>
                 </Switch>
             </Router>

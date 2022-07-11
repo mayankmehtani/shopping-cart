@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import _ from 'lodash'
 
 const cartSlice = createSlice({
     name: 'cart', // not entirely sure what this field does
@@ -8,8 +9,14 @@ const cartSlice = createSlice({
     },
     reducers: {
         addItemToCart: (state=this.initialState, action) => {
+            let newItems = Object.assign({}, state.items);
+            newItems[action.payload.itemName] = {
+                "price": action.payload.price,
+                "quantity": _.get(newItems[action.payload.itemName], "quantity", 0) + action.payload.quantity,
+            }
+
             return {
-                ...state,
+                items: newItems,
                 total: state.total+(action.payload.price*action.payload.quantity)
             };
         }
