@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from django.core.exceptions import BadRequest
 
 # Create your views here.
 @api_view(["GET"])
@@ -22,17 +23,23 @@ def get_item_by_category(request, item_category: Item.PRIMARY_CHOICES) -> Respon
     return Response(data=ItemSerializer(items, many=True).data, status=status.HTTP_200_OK)
 
 @api_view(["POST"])
-def process_order(request, item_name: str) -> Response:
-    i = get_object_or_404(Item, name=item_name)
+def process_order(request) -> Response:
+    if request.data == {}:
+        raise BadRequest("Cannot process an empty order")
 
-    item_requested = ItemOrderRequest(data=request.data)
-    if not item_requested.is_valid():
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    shopping_items = Item.objects.filter(name__in=list(request.data.keys()))
 
-    new_stock = i.current_stock  - item_requested.data["quantity_requested"]
-    if new_stock < 0: # disallow if stock is too low
-        return Response(status=status.HTTP_400_BAD_REQUEST)
-    i.current_stock = new_stock
-    i.save()
+    # 404 logic here
+    diff = set(request.data.keys()) - set(shopping_items.values_list("name", flat=True))
+    if diff:
+        raise BadRequest(f"Could not find requested items - {', '.join(diff)}")
+
+    for i in shopping_items:
+        if request.data[i.name]["quantity"] > i.current_stock:
+            raise BadRequest(f"{i.name} inventory is too low to complete this order")
     
-    return Response(data={"item_name": i.name, "new_stock": i.current_stock}, status=status.HTTP_200_OK)
+    for i in shopping_items:
+        i.current_stock -= request.data[i.name]["quantity"]
+        i.save()
+
+    return Response(data={}, status=status.HTTP_200_OK)

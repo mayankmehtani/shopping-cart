@@ -38,7 +38,7 @@ class Grid extends Component {
     }
 
     async setCards() {
-        let itemCards = new Array();
+        let itemCards = [];
         let items = await this.getItems();
         items = _.sortBy(items, "name");
         for (let item of items) {

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-// import Card from './Card.jsx'
 import './Cart.css'
+import {clearCart} from './features/cartSlice'
 import _ from 'lodash'
 
 class Cart extends Component {
@@ -11,6 +11,26 @@ class Cart extends Component {
         this.state = {
             itemInfo: [],
         }
+    }
+
+    submitOrder = async () => {
+        await fetch("http://localhost:8000/api/order/", {
+            method: 'POST',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(this.props.cartItems),
+        }).then(response => {
+            if (!response.ok) {
+                throw Error("API call failed");
+            } else {
+                return response.json();
+            }
+        })
+        .catch(error => console.log(`Error is ${error}`));
+
+        this.props.clearCart();
     }
 
     render() {
@@ -69,7 +89,7 @@ class Cart extends Component {
                     </tr>
                 </table>
 
-                <button onClick={() => console.log("Order Submitted")}>
+                <button onClick={this.submitOrder}>
                     Submit Order
                 </button>
             </div>
@@ -85,12 +105,10 @@ const mapStateToProps = (state) => {
     };
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//     return {
-//         addItemToCart: (price, quantity) => dispatch(
-//             addItemToCart({"price" :price, "quantity": quantity})
-//         ),
-//     }
-// }
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearCart: () => dispatch(clearCart({'type': 'CLEARCART'})),
+    }
+}
 
-export default connect(mapStateToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(Cart);
