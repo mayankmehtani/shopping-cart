@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Cart from '../cart/Cart.jsx'
-import Grid from '../grid/Grid.jsx'
+import ItemGrid from '../itemGrid/itemGrid.jsx'
 import './Banner.css'
 import etsyLogo from '../../assets/etsy.png'
 import {
@@ -41,15 +41,15 @@ class Banner extends Component {
 
                 <Switch>
                     <Route path="/Groceries">
-                        <Grid itemCategory={"FO"} />
+                        <ItemGrid itemCategory={"FO"} />
                     </Route>
 
                     <Route path="/Household">
-                        <Grid itemCategory={"HI"} />
+                        <ItemGrid itemCategory={"HI"} />
                     </Route>
 
                     <Route path="/Office">
-                        <Grid itemCategory={"OS"} />
+                        <ItemGrid itemCategory={"OS"} />
                     </Route>
 
                     <Route path="/Cart">

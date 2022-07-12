@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import Card from './Card.jsx'
-import './Grid.css'
+import './itemGrid.css'
 import _ from 'lodash'
 
-class Grid extends Component {
+class ItemGrid extends Component {
     constructor(props) { 
         super(props);
 
@@ -12,7 +12,7 @@ class Grid extends Component {
         }
     }
     async getItems() {
-        return await fetch(`/api/item-category/${this.props.itemCategory}/`)
+        return await fetch(`http://localhost:8000/api/item-category/${this.props.itemCategory}/`)
             .then(response => {
                 if (!response.ok) {
                     throw Error("API call failed");
@@ -69,4 +69,4 @@ class Grid extends Component {
     }
 }
 
-export default Grid;
+export default ItemGrid;
