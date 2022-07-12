@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import Cart from './Cart.jsx'
-import Grid from './Grid.jsx'
+import Cart from '../cart/Cart.jsx'
+import Grid from '../grid/Grid.jsx'
 import './Banner.css'
-import etsyLogo from './assets/etsy.png'
+import etsyLogo from '../../assets/etsy.png'
 import {
     BrowserRouter as Router,
     Link,

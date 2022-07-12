@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './Cart.css'
-import {clearCart} from './features/cartSlice'
+import {clearCart} from '../../features/cartSlice'
 import _ from 'lodash'
 
 class Cart extends Component {

@@ -1,9 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import './Card.css'
-import {addItemToCart} from './features/cartSlice'
-import plus from './assets/plus.svg'
-import minus from './assets/minus.svg'
+import {addItemToCart} from '../../features/cartSlice'
+import plus from '../../assets/plus.svg'
+import minus from '../../assets/minus.svg'
 
 class Card extends Component {
     constructor(props) {

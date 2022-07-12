@@ -1,6 +1,6 @@
 import React from "react";
 
-import Banner from './Banner.jsx'
+import Banner from './components/banner/Banner.jsx'
 import './App.css';
 
 function App() {
