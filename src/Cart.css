@@ -5,6 +5,13 @@
     align-items: center;
 }
 
+#empty-cart-msg {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 table {
     border-collapse: collapse;
     width: 35%;

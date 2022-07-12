@@ -31,13 +31,15 @@ class Cart extends Component {
         .catch(error => console.log(`Error is ${error}`));
 
         this.props.clearCart();
+        alert("Order successfully placed!");
     }
 
     render() {
         return (
-            <div id="cart-container">
-                <table>
-                    {_.size(this.props.cartItems) ?
+            <div>
+                {_.size(this.props.cartItems) ?
+                <div id="cart-container">
+                    <table>
                         <tr>
                             <th>
                                 Item
@@ -53,11 +55,8 @@ class Cart extends Component {
 
                             <th/>
                         </tr>
-                        : null
-                    }
-
-
-                    {Object.entries(this.props.cartItems).map((a) => 
+                            
+                        {Object.entries(this.props.cartItems).map((a) => 
                         <tr>
                             <td class="item-name">
                                 {a[0]}
@@ -75,23 +74,30 @@ class Cart extends Component {
                                 ${Number(a[1].price)*Number(a[1].quantity)}
                             </td>
                         </tr>
-                    )}
+                        )}
 
-                    <tr id="order-total">
-                        <td>
-                            Total
-                        </td>
-                        <td/>
-                        <td/>
-                        <td>
-                            ${this.props.cartTotal}
-                        </td>
-                    </tr>
-                </table>
+                        <tr id="order-total">
+                            <td>
+                                Total
+                            </td>
+                            <td/>
+                            <td/>
+                            <td>
+                                ${this.props.cartTotal}
+                            </td>
+                        </tr>
+                    </table>
 
-                <button onClick={this.submitOrder}>
-                    Submit Order
-                </button>
+                    <button onClick={this.submitOrder}>
+                        Submit Order
+                    </button>
+                    
+                </div>
+                : 
+                <div id="empty-cart-msg">
+                    <strong>Looks like your cart is empty!</strong>
+                </div>
+                }
             </div>
         )
     }
