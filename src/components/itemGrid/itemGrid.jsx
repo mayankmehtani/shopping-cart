@@ -59,7 +59,7 @@ class ItemGrid extends Component {
             this.setCards();
         }
     }
-    
+
     render() {
         return (
             <div id="grid">

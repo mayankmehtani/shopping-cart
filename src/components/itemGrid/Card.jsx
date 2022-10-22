@@ -93,35 +93,35 @@ class Card extends Component {
 
     render () { 
         return (
-            <div>
+            <div class="main">
                 <div class="details">
-                    <div>
-                        {this.props.label}
-                    </div>
+                    <div class="item-info">
+                        <div class="label">
+                            {this.props.label}
+                        </div>
 
-                    <div>
-                        ${this.props.price}
+                        <div class="price">
+                            ${this.props.price}
+                        </div>
                     </div>
 
                     <img src={`http://localhost:8000${this.props.image_src}`}></img>
                     
-                </div>
-                
-                <div class="quantity">
-                    <input type="text" onChange={this.setQuantityFromUser.bind(this)} value={this.state.quantity} onPaste={(e) => e.preventDefault()}>
-                    </input>
+                    <div class="quantity">
+                        <input type="text" onChange={this.setQuantityFromUser.bind(this)} value={this.state.quantity} onPaste={(e) => e.preventDefault()}>
+                        </input>
 
-                    <div onClick={this.decrement.bind(this)}>
-                        <img src={minus}/>
+                        {/* <div class="minus" onClick={this.decrement.bind(this)}>
+                            <img src={minus}/>
+                        </div>
+
+                        <div class="plus" onClick={this.increment.bind(this)}>
+                            <img src={plus}/>
+                        </div> */}
+                        <div class="cart" onClick={this.addToCart.bind(this)}>
+                            Add to Cart
+                        </div>
                     </div>
-
-                    <div onClick={this.increment.bind(this)}>
-                        <img src={plus}/>
-                    </div>
-                </div>
-
-                <div class="cart" onClick={this.addToCart.bind(this)}>
-                    Add to Cart
                 </div>
             </div>
         )

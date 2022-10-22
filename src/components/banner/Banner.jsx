@@ -22,15 +22,15 @@ class Banner extends Component {
 
                     <div className="sections">
                         <Link to="/Groceries" exact className="category">
-                            Groceries
+                            <strong>Groceries</strong>
                         </Link>
 
                         <Link to="/Household" exact className="category">
-                            Household
+                            <strong>Household</strong>
                         </Link>
 
                         <Link to="/Office" className="category">
-                            Office
+                            <strong>Office</strong>
                         </Link>
 
                         <Link to="/Cart" id="cart">
