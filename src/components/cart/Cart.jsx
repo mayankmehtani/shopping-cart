@@ -71,7 +71,7 @@ class Cart extends Component {
                             </td>
         
                             <td>
-                                ${Number(a[1].price)*Number(a[1].quantity)}
+                                ${(Number(a[1].price)*Number(a[1].quantity)).toFixed(2)}
                             </td>
                         </tr>
                         )}

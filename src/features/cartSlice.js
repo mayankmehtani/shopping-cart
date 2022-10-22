@@ -17,7 +17,9 @@ const cartSlice = createSlice({
 
             return {
                 items: newItems,
-                total: state.total+(action.payload.price*action.payload.quantity)
+                total: Number(
+                    (state.total+(action.payload.price*action.payload.quantity)).toFixed(2)
+                ),
             };
         },
         clearCart: (state=this.initialState, action) => {
