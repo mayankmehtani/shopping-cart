@@ -33,8 +33,8 @@ class Banner extends Component {
                             Office
                         </Link>
 
-                        <Link to="/Cart">
-                            Cart: ${this.props.cartTotal}
+                        <Link to="/Cart" id="cart">
+                            <strong>Cart: ${this.props.cartTotal}</strong>
                         </Link>
                     </div>
                 </div>

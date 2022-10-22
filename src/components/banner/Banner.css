@@ -30,6 +30,13 @@ img {
     justify-content: space-around;
     cursor: pointer;
     font-family: "Roboto";
+    color: white;
+    text-decoration: none;
+}
+
+#cart {
+    color: white;
+    text-decoration: none;
 }
 
 .sections {
