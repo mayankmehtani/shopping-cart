@@ -53,7 +53,9 @@ class Cart extends Component {
                                 Quantity
                             </th>
 
-                            <th/>
+                            <th>
+                                Item Total
+                            </th>
                         </tr>
                             
                         {Object.entries(this.props.cartItems).map((a) => 

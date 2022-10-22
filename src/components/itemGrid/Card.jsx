@@ -70,7 +70,7 @@ class Card extends Component {
         }
 
         const item = this.props.label;
-        let response = await fetch(`http://localhost:8000/api/item/${item}/stock`)
+        let response = await fetch(`http://localhost:8000/api/item/${item}/current-stock`)
             .then(response => {
                 if (!response.ok) {
                     throw ("API call failed");
